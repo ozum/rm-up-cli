@@ -1,0 +1,91 @@
+{
+  "name": "rm-up-cli",
+  "version": "1.0.0",
+  "description": "Delete files or empty directories and their empty parents from bottom to up.",
+  "author": {
+    "name": "Özüm Eldoğan",
+    "email": "ozum@ozum.net",
+    "url": ""
+  },
+  "keywords": [
+    "rm",
+    "rmdir",
+    "del",
+    "delete",
+    "dir",
+    "directory",
+    "folder",
+    "empty",
+    "recurse",
+    "recursive",
+    "remove",
+    "bottom",
+    "up",
+    "top"
+  ],
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "!dist/**/@(*.spec|*.test)*",
+    "!dist/**/__test__",
+    "module-files",
+    "@types"
+  ],
+  "bin": {
+    "rm-up": "dist/index.js",
+    "rmup": "dist/index.js"
+  },
+  "homepage": "https://github.com/ozum/rm-up-cli",
+  "bugs": "https://github.com/ozum/rm-up-cli/issues",
+  "repository": "ozum/rm-up-cli",
+  "license": "MIT",
+  "scripts": {
+    "execute": "ts-node --transpile-only --compiler-options '{ \"module\": \"commonjs\" }'",
+    "watch": "ts-node-dev --no-notify --respawn --transpile-only --compiler-options '{ \"module\": \"commonjs\" }'",
+    "lint": "eslint --ignore-path .gitignore --cache --max-warnings 0 --ext js,jsx,ts,tsx,vue --fix .",
+    "format": "prettier . --write",
+    "release": "npm run readme && git pull && git add -A && git commit && git push --follow-tags",
+    "test": "jest --coverage",
+    "readme": "if grep -q '{% include \"api.md\" %}' 'README.njk'; then npm run typedoc:single-md; mkdir -p temp && mv api.md temp/; fi && readmeasy --partial-dirs temp,module-files/template-partials && rm -rf temp",
+    "build": "tsc --incremental",
+    "postinstall": "is-ci || husky install",
+    "postpublish": "pinst --enable",
+    "prepublishOnly": "pinst --disable",
+    "yo:update": "yo tsmod:uninstall --no-install --force && yo 'tsmod' 'no-coverage' '--no-import-helpers'"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "commitizen": "^4.2.3",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^5.0.6",
+    "pinst": "^2.1.1",
+    "is-ci": "^2.0.0",
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.2.0",
+    "lint-staged": "^10.5.3",
+    "readmeasy": "^0.2.7",
+    "@types/node": "^14.14.21",
+    "ts-node-dev": "^1.1.1",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "figures": "^3.2.0",
+    "meow": "^9.0.0",
+    "meow-helper": "^1.5.1",
+    "rm-up": "^1.0.0"
+  }
+}
